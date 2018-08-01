@@ -93,6 +93,9 @@ RewriteRule ^forward/?$ /brands/Forward  [L,R=301]
 RewriteRule ^cube/?$ /brands/Cube  [L,R=301]
 RewriteRule ^forwardvelo/?$ /brands/Forward  [L,R=301]
 RewriteRule ^elki/?$ /elki-iskusstvennye  [L,R=301]
+RewriteRule ^pesochnitsy-i-kacheli/?$ /dlya-dachi  [L,R=301]
+RewriteRule ^obuv-dlya-thekvando-kikboksinga-rukopashnogo-boya-sambo/?$ /obuv-dlya-thekvondo-kikboksinga-rukopashnogo-boya-sambo  [L,R=301]
+RewriteRule ^meshki-i-grushi/?$ /meshki-grushi-manekeny  [L,R=301]
 
 
 # Tags
