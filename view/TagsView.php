@@ -47,21 +47,32 @@ class TagsView extends View
             
             if(count($products_ids) > 0) {
                 $products = array();
-                foreach($this->products->get_products(array('id'=>$products_ids)) as $p)
+                $products_ids_v = array();
+                foreach($this->products->get_products(array('id'=>$products_ids,'visible'=>1,'in_stock'=>1)) as $p)
                     $products[$p->id] = $p;
+                    $products_ids_v[$p->id]=$p->id;
                     
                 // Выбираем варианты товаров
-                $variants = $this->variants->get_variants(array('product_id'=>$products_ids, 'in_stock'=>true));
+
+
+
+                $variants = $this->variants->get_variants(array('product_id'=>$products_ids_v));
                 
                 // Для каждого варианта
                 foreach($variants as &$variant)
                 {
                     // добавляем вариант в соответствующий товар
+
+
+
                     $products[$variant->product_id]->variants[] = $variant;
+
+
+
                 }
                 
                 // Выбираем изображения товаров
-                $images = $this->products->get_images(array('product_id'=>$products_ids));
+                $images = $this->products->get_images(array('product_id'=>$products_ids_v));
                 foreach($images as $image)
                     $products[$image->product_id]->images[] = $image;
 

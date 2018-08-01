@@ -184,6 +184,8 @@ class Products extends Simpla {
         $query = $this->db->placehold($query);
         $this->db->query($query);
 
+
+
         $products = $this->db->results();
 
         foreach ($products as $product) {

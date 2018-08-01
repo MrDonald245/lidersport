@@ -7,3 +7,4 @@ config/config.php
 /changelog.txt
 /package-lock.json
 /**/*.log
+.idea

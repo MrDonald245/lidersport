@@ -1,6 +1,6 @@
 AuthType Basic
 AuthName "/www/adv26.ru/madmin"
-AuthUserFile /var/www/admin/data/www/adv26.ru/madmin/.passwd
+AuthUserFile /var/www/lid.loc/madmin/.passwd
 <Limit GET POST>
 	require valid-user
 </Limit>
