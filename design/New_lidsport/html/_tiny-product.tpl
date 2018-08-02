@@ -35,7 +35,7 @@
 		{* Изображение товара *}
 		<div class="tiny-product__image">
 			{if $product->images}
-				<img src="{$product->image->filename|escape|resize:190:140}" alt="{$product->name|escape}"/>
+				<img src="{$product->image->filename|escape|resize:190:190}" alt="{$product->name|escape}"/>
 			{else}
 				<img src="/design/{$settings->theme}/images/defaultPhoto.png" alt="{$product->name|escape}"/>
 			{/if}

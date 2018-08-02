@@ -25,6 +25,24 @@
 <div class="about">
   <img src="/design/{$settings->theme}/images/woman.png" alt="woman" class="about__bg">
   <div class="about__wrapper wrapper">
+    <h1 style="position:absolute;top:75px;left:72px;color:rgb(255,255,255);font-size:22px;width:580px;height:36px;/*background-color:rgb(225,216,232);*/
+    text-align:center;padding-top:5px;/*opacity:0.8;border-radius:3px;*/text-transform:none !important;">Лидерспорт - интернет-магазин спортивных товаров</h1>
+    <style>
+      @media screen and (max-width: 1225px) {
+        h1 {
+          top: 50px !important;
+          left: 25px !important;
+          max-width: 500px !important;
+        }
+      }
+      @media screen and (max-width:768px) {
+        h1 {
+          top: 20px !important;
+          left: 25px !important;
+          max-width: 500px !important;
+        }
+      }
+    </style>
     <p class="about__text">Лидерспорт – это сеть спортивных магазинов для всей семьи! Все для спорта и активного отдыха вы найдете в наших магазинах, вне зависимости от того являетесь ли вы профессиональным спортсменом или только начинаете вести здоровый образ жизни. Наши консультанты помогут найти оптимальное решение каждому покупателю, исходя из его потребностей и уровня спортивной подготовки.</p>
     <p class="about__text">Лидерспорт - это молодая динамично развивающая компания. Мы хотим стать ближе к каждому из вас! На сегодняшний день наши магазины представлены во все крупных районах города.</p>
     <p class="about__text">Мы тщательно следим за нашим ассортиментом и ценовой политикой, отбирая только лучших поставщиков, предоставляя вам качественные товары. Являемся дилерами многих российских производителей.</p>
