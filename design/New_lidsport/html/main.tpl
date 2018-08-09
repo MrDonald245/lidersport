@@ -1,8 +1,8 @@
 {include file='slider/slider.tpl'}
 
 <div class="mainBanners">
- <a href="/samokaty-dlya-detej"><img src="/files/slides/mini_1.jpg"></a>
- <a href="/velosipedy"><img src="/files/slides/mini_2.jpg"></a>
+  <a href="https://www.instagram.com/lidsport.ru/?utm_source=lidsport_main"><img src="/files/slides/insta_mini.jpg"></a>
+  <a href="https://vk.com/lidersport26?utm_source=lidsport_main"><img src="/files/slides/vk_mini.jpg"></a>
  <a href="https://app.halvacard.ru/order/?utm_medium=Partner&utm_source=%7bNAME%7d&utm_campaign=halva"><img src="/files/slides/mini_halva.jpg"></a>
 </div>
 
@@ -25,23 +25,38 @@
 <div class="about">
   <img src="/design/{$settings->theme}/images/woman.png" alt="woman" class="about__bg">
   <div class="about__wrapper wrapper">
-    <h1 style="position:absolute;top:75px;left:72px;color:rgb(255,255,255);font-size:22px;width:580px;height:36px;/*background-color:rgb(225,216,232);*/
-    text-align:center;padding-top:5px;/*opacity:0.8;border-radius:3px;*/text-transform:none !important;">Лидерспорт - интернет-магазин спортивных товаров</h1>
+    <h1 style="position:relative;top:-60px;left:60px;color:rgb(255,255,255);font-size:22px;width:580px;height:36px;/*background-color:rgb(225,216,232);*/
+    text-align:center;margin:0;padding:0;/*opacity:0.8;border-radius:3px;*/text-transform:none !important;">Лидерспорт - интернет-магазин спортивных товаров</h1>
     <style>
+      .about__wrapper {
+        padding-bottom: 52px !important;
+      }
       @media screen and (max-width: 1225px) {
         h1 {
-          top: 50px !important;
-          left: 25px !important;
+          top: -60px !important;
+          left: 20px !important;
           max-width: 500px !important;
         }
       }
       @media screen and (max-width:768px) {
         h1 {
-          top: 20px !important;
-          left: 25px !important;
-          max-width: 500px !important;
+          top: -60px !important;
+          left: 20px !important;
+          max-width: 580px !important;
         }
       }
+      @media screen and (max-width:640px) {
+        h1 {
+          top: -60px !important;
+          left: 0px !important;
+          max-width: 400px !important;
+        }
+       @media screen and (max-width:420px) {
+         h1 {
+           top: -80px !important;
+           left: 5px !important;
+           max-width: 300px !important;
+        }
     </style>
     <p class="about__text">Лидерспорт – это сеть спортивных магазинов для всей семьи! Все для спорта и активного отдыха вы найдете в наших магазинах, вне зависимости от того являетесь ли вы профессиональным спортсменом или только начинаете вести здоровый образ жизни. Наши консультанты помогут найти оптимальное решение каждому покупателю, исходя из его потребностей и уровня спортивной подготовки.</p>
     <p class="about__text">Лидерспорт - это молодая динамично развивающая компания. Мы хотим стать ближе к каждому из вас! На сегодняшний день наши магазины представлены во все крупных районах города.</p>

@@ -11,7 +11,7 @@
 				</nav>
 			</div>
 		</div>
-	
+
 		<div class="shares__content">
 			{$post->text}
 		</div>
