@@ -315,7 +315,7 @@ class Categories extends Simpla {
         $keyword_filter = '';
         $group = '';
 
-        
+
             $group = 'GROUP BY t.value';
 
         if (isset($filter['type']))
@@ -334,7 +334,7 @@ class Categories extends Simpla {
 
         $query = $this->db->placehold("SELECT t.type, t.object_id, t.value,d.meta_description as description,d.url FROM __tags t LEFT JOIN __tags_details d ON d.name = t.value  WHERE 1 $object_id_filter $type_filter $keyword_filter and t.value != '' $group ORDER BY t.value");
 
-        
+
         $this->db->query($query);
         $res = $this->db->results();
 
@@ -386,4 +386,40 @@ class Categories extends Simpla {
         $this->db->query($query);
     }
 
+    /**
+     * Проверка существует ли категория.
+     *
+     * @param array $filter может содержать в себе id или name
+     *
+     * @return bool
+     */
+    public function is_category_exists($filter)
+    {
+        $id_filter   = '';
+        $name_filter = '';
+
+        if (!empty($filter['id'])) {         // Поиск по id категории
+            $id_filter = $this->db->placehold('AND id = ? LIMIT 1', $filter['id']);
+        } elseif (!empty($filter['name'])) { // Поиск по имени категории
+            $name_filter = $this->db->placehold('AND name LIKE ? LIMIT 1', $filter['name']);
+        }
+
+        $this->db->query("SELECT id FROM __categories WHERE 1 $id_filter $name_filter");
+
+        return !empty($this->db->result());
+    }
+
+    /**
+     * Получить id категории по его имени.
+     *
+     * @param string $category_name
+     *
+     * @return int
+     */
+    public function get_category_id_by_name($category_name)
+    {
+        $this->db->query('SELECT id FROM __categories WHERE name LIKE ? LIMIT 1', $category_name);
+
+        return (int)$this->db->result('id');
+    }
 }

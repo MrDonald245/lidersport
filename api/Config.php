@@ -25,9 +25,12 @@ class Config
 	// В конструкторе записываем настройки файла в переменные этого класса
 	// для удобного доступа к ним. Например: $simpla->config->db_user
 	public function __construct()
-	{		
+	{
+
+        // Определяем корневую директорию сайта
+        $this->vars['root_dir'] =  dirname(dirname(__FILE__)).'/';
 		// Читаем настройки из дефолтного файла
-		$ini = parse_ini_file($this->config_file);
+		$ini = parse_ini_file($this->vars['root_dir'] . $this->config_file);
 		// Записываем настройку как переменную класса
 		foreach($ini as $var=>$value)
 			$this->vars[$var] = $value;
@@ -49,9 +52,6 @@ class Config
 
 		// Подпапка в которую установлена симпла относительно корня веб-сервера
 		$this->vars['subfolder'] = $subdir.'/';
-
-		// Определяем корневую директорию сайта
-		$this->vars['root_dir'] =  dirname(dirname(__FILE__)).'/';
 
 		// Максимальный размер загружаемых файлов
 		$max_upload = (int)(ini_get('upload_max_filesize'));
