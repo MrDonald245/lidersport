@@ -65,6 +65,9 @@ abstract class ImportBase
 
         $filename = $this->get_import_file_path();
 
+        // Установка кодировки файла.
+        setlocale(LC_ALL, 'ru_RU.' . $this->get_file_charset($filename));
+
         // Чтение файла построчно.
         $handle = fopen($filename, "r");
         if ($handle) {
@@ -99,5 +102,29 @@ abstract class ImportBase
     protected function get_import_file_path()
     {
         return $this->simpla->config->root_dir . $this->importFilePath;
+    }
+
+    /**
+     * Узнать кодировку файла.
+     *
+     * @param string $filename
+     *
+     * @return string `UTF8` или `CP1251`
+     */
+    private function get_file_charset($filename)
+    {
+        // Узнаем какая кодировка у файла
+        $fh         = fopen($filename, 'r');
+        $teststring = fread($fh, 2);
+        fclose($fh);
+
+        // Кодировки
+        if (preg_match('//u', $teststring)) {
+            $charset = 'UTF8';
+        } else {
+            $charset = 'CP1251';
+        }
+
+        return $charset;
     }
 }
