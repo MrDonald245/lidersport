@@ -847,7 +847,7 @@ class Products extends Simpla {
      */
 
     public function delete_tag($value) {
-        $query = $this->db->placehold("DELETE FROM __tag_details WHERE value=? LIMIT 1", $value);
+        $query = $this->db->placehold("DELETE FROM __tags_details WHERE name=? LIMIT 1", $value);
         $this->db->query($query);
         $query = $this->db->placehold("DELETE FROM __tags WHERE value=?", $value);
         $this->db->query($query);

@@ -75,9 +75,15 @@ class ImportCategories extends ImportBase
 
                 // Обновить категорию.
                 $this->simpla->categories->update_category($category->id, $category);
+
+                // Перезаписать теги
+                $this->helper->rewrite_tags($category->id, $tags);
             } else {
                 // Создать категорию.
                 $this->simpla->categories->add_category($category);
+
+                // Добавить теги
+                $this->helper->rewrite_tags($category->id, $tags);
             }
         });
     }

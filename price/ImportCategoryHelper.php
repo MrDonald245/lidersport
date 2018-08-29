@@ -164,4 +164,42 @@ class ImportCategoryHelper
 
         return $last_parent_cat_id;
     }
+
+    /**
+     * Перезаписать теги категории. Сначала удаляет все теги категории, а потом добавляет новые.
+     *
+     * @param int   $category_id
+     *
+     * @param array $tags
+     *
+     * @return void
+     */
+    public function rewrite_tags($category_id, $tags)
+    {
+        // Старые теги требуются для удаления оных.
+        $old_tags = $this->simpla->products->get_tags(array('object_id' => $category_id, 'type' => 'categori'));
+
+        // Очистить старые теги категории перед добавлнием новых.
+        foreach ($old_tags as $old_tag) {
+            $this->simpla->products->delete_tag($old_tag->value);
+        }
+
+        // Добавить теги к категории.
+        $this->add_tags($category_id, $tags);
+    }
+
+    /**
+     * Добавить тэги к категории.
+     *
+     * @param int   $category_id
+     * @param array $tags
+     */
+    private function add_tags($category_id, $tags)
+    {
+        foreach ($tags as $value) {
+            $this->simpla->db->query("INSERT IGNORE INTO __tags 
+                                      SET type=?, object_id=?, value=?", 'categori', intval($category_id), $value);
+            $this->simpla->tags->add_tag(array('name' => $value));
+        }
+    }
 }
