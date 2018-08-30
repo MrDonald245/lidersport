@@ -26,7 +26,12 @@ class ImportCategories extends ImportBase
      *
      * @var string CSV_DELIMITER
      */
-    const CSV_DELIMITER = ',';
+    const CSV_DELIMITER = ';';
+
+    /**
+     * @var array $map имена приходящих полей из 1С в выгрузке категорий.
+     */
+    private $map;
 
     /**
      * Вспомогательный класс для простых задач.
@@ -42,7 +47,8 @@ class ImportCategories extends ImportBase
     {
         parent::__construct(self::IMPORT_FILE_PATH, self::CSV_DELIMITER);
 
-        $this->helper = new ImportCategoryHelper($this->simpla);
+        $this->map    = require_once 'category_map.php';
+        $this->helper = new ImportCategoryHelper($this->simpla, $this->map);
     }
 
     /**
@@ -65,6 +71,17 @@ class ImportCategories extends ImportBase
                 return;
             }
 
+            // Если у текущей категории есть родители, то обновить или создать родительские категории.
+            $cat_parent_id = 0;
+
+            // Получить id родителя категории исходя из вложенности названия категория в файле выгрузки.
+            $parent_cats = $this->helper->get_parent_categories_from_name($line[$this->map['name']]);
+            if (!empty($parent_cats)) {
+                $cat_parent_id = $this->helper->prepare_parent_categories($parent_cats);
+            }
+
+            $category->parent_id = $cat_parent_id;
+
             // Если категория есть в базе, то обновить ее. В противном случае создать.
             if ($this->simpla->categories->is_category_exists(array('id' => $category->id))) {
 
@@ -78,6 +95,24 @@ class ImportCategories extends ImportBase
 
                 // Перезаписать теги
                 $this->helper->rewrite_tags($category->id, $tags);
+            } elseif ($this->simpla->categories->is_category_exists(array('name' => $category->name))) {
+                $twink_id = $this->simpla->categories->get_category_id_by_name($category->name);
+                $twink    = $this->simpla->categories->get_category($twink_id);
+
+                // Если категория с одинаковым иминем находится в одной вложености, то пресвоить ей id новой.
+                if ($twink->parent_id == $category->parent_id) {
+
+                    $this->simpla->db->query('UPDATE s_categories
+                                              SET id = ? 
+                                              WHERE id = ?', $category->id, $twink_id);
+
+                    $this->simpla->db->query('UPDATE s_categories
+                                              SET parent_id = ?
+                                              WHERE parent_id = ?', $category->id, $twink_id);
+
+                    // Добавить теги
+                    $this->helper->rewrite_tags($category->id, $tags);
+                }
             } else {
                 // Создать категорию.
                 $this->simpla->categories->add_category($category);

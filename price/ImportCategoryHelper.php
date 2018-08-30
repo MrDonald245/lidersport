@@ -25,10 +25,11 @@ class ImportCategoryHelper
      * ImportCategoryHelper constructor.
      *
      * @param Simpla $simpla
+     * @param array  $map
      */
-    public function __construct($simpla)
+    public function __construct($simpla, $map)
     {
-        $this->map    = require_once 'category_map.php';
+        $this->map    = $map;
         $this->simpla = $simpla;
     }
 
@@ -41,24 +42,13 @@ class ImportCategoryHelper
      */
     public function createCategoryFromLine($line)
     {
-        // Получить вложеность категорий в виде массива.
-        $cat_nesting   = explode('/', $line[$this->map['name']]);
-        $cat_name      = array_pop($cat_nesting); // Имя текущей категории.
-        $cat_parent_id = 0;
-
-        // Если у текущей категории есть родители, то обновить или создать родительские категории.
-        if (!empty($cat_nesting)) {
-            $cat_parent_id = $this->prepare_parent_categories($cat_nesting);
-        }
-
         // Конструкция готового объекта категории.
         $category                = new stdClass();
         $category->id            = $line[$this->map['id']];
         $category->meta_title    = $line[$this->map['name']];
         $category->content_title = $line[$this->map['name']];
-        $category->name          = $cat_name;
+        $category->name          = array_pop(explode('/', $line[$this->map['name']]));
         $category->url           = $this->translit($category->name);
-        $category->parent_id     = $cat_parent_id;
 
         return $category;
     }
@@ -140,7 +130,7 @@ class ImportCategoryHelper
      *
      * @return int ближайший родитель категории.
      */
-    private function prepare_parent_categories($parent_categories)
+    public function prepare_parent_categories($parent_categories)
     {
         $last_parent_cat_id = 0; // id последнего родителя.
 
@@ -150,6 +140,7 @@ class ImportCategoryHelper
             // Если категории с таким именем не существует, то создать новую категорию.
             if (!$parent_cat_id) {
                 $new_parent_category                = new stdClass();
+                $new_parent_category->id            = rand() * -1;
                 $new_parent_category->name          = $category;
                 $new_parent_category->meta_title    = $category;
                 $new_parent_category->content_title = $category;
@@ -186,6 +177,21 @@ class ImportCategoryHelper
 
         // Добавить теги к категории.
         $this->add_tags($category_id, $tags);
+    }
+
+    /**
+     * Распарсить строку с вложенными категориями в массив.
+     *
+     * @param string $category_name
+     *
+     * @return array
+     */
+    public function get_parent_categories_from_name($category_name)
+    {
+        $parent_cats   = explode('/', $category_name);
+        array_pop($parent_cats);
+
+        return $parent_cats;
     }
 
     /**
