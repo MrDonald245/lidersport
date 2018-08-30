@@ -8,4 +8,4 @@ config/config.php
 /package-lock.json
 /**/*.log
 .idea
-/price/categories.csv
+/price/*.csv

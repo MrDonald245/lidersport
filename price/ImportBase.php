@@ -111,7 +111,7 @@ abstract class ImportBase
      *
      * @return string `UTF8` или `CP1251`
      */
-    private function get_file_charset($filename)
+    protected function get_file_charset($filename)
     {
         // Узнаем какая кодировка у файла
         $fh         = fopen($filename, 'r');

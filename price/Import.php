@@ -7,6 +7,7 @@
  */
 
 include_once 'ImportCategories.php';
+include_once 'ImportProducts.php';
 
 /**
  * Class Import - импорт данных из 1С.
@@ -19,10 +20,17 @@ class Import
     private $importCategories;
 
     /**
+     * @var ImportProducts $importProducts
+     */
+    private $importProducts;
+
+    /**
      * Import constructor.
      */
-    public function __construct() {
+    public function __construct()
+    {
         $this->importCategories = new ImportCategories();
+        $this->importProducts   = new ImportProducts();
     }
 
     /**
@@ -35,6 +43,7 @@ class Import
         // Попытка импорта.
         try {
             $this->importCategories->process();
+            $this->importProducts->process();
         } catch (Exception $exception) {
             echo $exception->getMessage();
         }
