@@ -7,6 +7,13 @@ error_reporting(E_ALL ^ E_NOTICE);
 if ($_GET['lid_passwd'] != 'svsdefes84j') {
     die('qwwrrt');
 }
+
+/**
+ * Подключение переписаного участка выгрузки категорий
+ * к нетронутому скрипту выгрузки вариантов товара.
+ */
+include_once 'Import.php';
+
 chdir('../');
 include('api/Simpla.php');
 
