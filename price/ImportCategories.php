@@ -101,17 +101,8 @@ class ImportCategories extends ImportBase
 
                 // Если категория с одинаковым иминем находится в одной вложености, то пресвоить ей id новой.
                 if ($twink->parent_id == $category->parent_id) {
-
-                    // Сменить старый id категории на новый.
-                    $this->simpla->db->query('UPDATE __categories
-                                              SET id = ? 
-                                              WHERE id = ?', $category->id, $twink_id);
-
-                    // Всем дочерним категориям сменть ссылку на новый id категории.
-                    $this->simpla->db->query('UPDATE __categories
-                                              SET parent_id = ?
-                                              WHERE parent_id = ?', $category->id, $twink_id);
-
+                    // Обновить старое id категории на новое.
+                    $this->helper->update_category_id($twink_id, $category->id);
                     // Добавить теги
                     $this->helper->rewrite_tags($category->id, $tags);
                 }

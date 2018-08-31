@@ -9,3 +9,4 @@ config/config.php
 /**/*.log
 .idea
 /price/*.csv
+/adminer.sql.gz

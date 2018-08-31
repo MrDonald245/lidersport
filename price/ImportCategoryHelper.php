@@ -195,6 +195,38 @@ class ImportCategoryHelper
     }
 
     /**
+     * Обновить старое id категории на новое для таблиц:
+     * categories, categories_features и categories_coupons.
+     *
+     * @param int $old_category_id
+     * @param int $new_category_id
+     *
+     * @return void
+     */
+    public function update_category_id($old_category_id, $new_category_id)
+    {
+        // Сменить старый id категории на новый.
+        $this->simpla->db->query('UPDATE __categories
+                                              SET id = ? 
+                                              WHERE id = ?', $new_category_id, $old_category_id);
+
+        // Всем дочерним категориям сменть ссылку на новый id категории.
+        $this->simpla->db->query('UPDATE __categories
+                                              SET parent_id = ?
+                                              WHERE parent_id = ?', $new_category_id, $old_category_id);
+
+        // Обновить id категории для свойств.
+        $this->simpla->db->query('UPDATE __categories_features 
+                                              SET category_id = ?
+                                              WHERE category_id = ?', $new_category_id, $old_category_id);
+
+        // Обновить id категории для купонов.
+        $this->simpla->db->query('UPDATE __categories_coupons
+                                              SET category_id = ?
+                                              WHERE category_id = ?', $new_category_id, $old_category_id);
+    }
+
+    /**
      * Добавить тэги к категории.
      *
      * @param int   $category_id
