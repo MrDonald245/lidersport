@@ -75,9 +75,11 @@ abstract class ImportBase
             $header      = array();
 
             while (($line = fgets($handle)) !== false) {
-
                 if ($line_number == 0) {
                     $header = str_getcsv($line, $this->csvDelimiter);   // Заголовок csv файла.
+
+                    // Фикс кодировки файла (костыль).
+                    $header[0] = $this->fix_wrong_encoding_in_category_id($header[0]);
                 } else {
                     $csv_body         = str_getcsv($line, $this->csvDelimiter);
                     $header_with_body = array_combine($header, $csv_body);
@@ -126,5 +128,21 @@ abstract class ImportBase
         }
 
         return $charset;
+    }
+
+    /**
+     * category.csv приходит с некоректным символом в начале файла, сразу перед category_id.
+     * Эта функция получает category_id из файла categories.csv и меняет этой строке кадировку на ASCII.
+     * После смены кодировки отображается знак "?" вместо некоректного символа в кодировке UTF-8.
+     * Удаляем неверный символ. Возвращаем строку без спец-символа в кодировке ASCII.
+     *
+     * @param string $wrong_encoded_category_id
+     *
+     * @return string
+     */
+    private function fix_wrong_encoding_in_category_id($wrong_encoded_category_id)
+    {
+        return str_replace('?', '',
+            mb_convert_encoding($wrong_encoded_category_id, 'ASCII', 'UTF-8'));
     }
 }
