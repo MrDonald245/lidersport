@@ -405,8 +405,9 @@ class Categories extends Simpla {
         }
 
         $this->db->query("SELECT id FROM __categories WHERE 1 $id_filter $name_filter");
+        $res = $this->db->result();
 
-        return !empty($this->db->result());
+        return !empty($res);
     }
 
     /**

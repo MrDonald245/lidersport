@@ -43,7 +43,7 @@ class Import
         // Попытка импорта.
         try {
             $this->importCategories->process();
-            //$this->importProducts->process();
+            $this->importProducts->process();
         } catch (Exception $exception) {
             echo $exception->getMessage();
         }
