@@ -39,7 +39,7 @@ class ImportProducts extends ImportBase
      */
     public function process()
     {
-        // TODO: это функционал из go.php. Необходимо переделать.
+        // TODO: этот функционал из go.php. Необходимо переделать.
 
         $fname = $this->simpla->config->root_dir . self::IMPORT_FILE_PATH;
 
@@ -50,6 +50,13 @@ class ImportProducts extends ImportBase
         if (!$handle) {
             echo 'Не могу загрузить файл. Проверьте настройки сервера';
         } else {
+
+            // Обнулим товары
+            $this->simpla->db->query('UPDATE __variants SET stock=?', 0);
+            $this->simpla->db->query('TRUNCATE s_images');
+
+            $this->simpla->variants->log('UPDATE __variants SET stock=?');
+
             // Порядок колонок
             $cols_order = "ctg, ctg_id, name, sku, arkl, prc, kolvo, razmer, cvet, grup, allsv, izbr, zakaz, brand, max_sale, related, old_price, shop_sclad, shop_makarova, shop_204, shop_mira, shop_yog, shop_passaj, short_name, bodyp,tags";
             $temp       = preg_split('/,/', $cols_order);
@@ -61,8 +68,8 @@ class ImportProducts extends ImportBase
 
             $cols      = true;
             $delimiter = ";";
-            # Идем по всем строкам
 
+            // Идем по всем строкам
             while ($cols) {
                 $cols = fgetcsv($handle, 0, $delimiter);
 
