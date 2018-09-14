@@ -5,7 +5,13 @@
   <div class="window">
    
     {include file='navigation.tpl'}
-    
+
+
+      <div class="category-bar">
+          <div class="category-bar__item category-bar__item--tags">
+              {include file='catTags.tpl'}
+          </div>
+      </div>
 
   	{* Если у категории есть подкатегории, показываем их *}
     {$last_cat = end($category->path)}
