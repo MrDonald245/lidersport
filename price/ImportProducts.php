@@ -505,7 +505,7 @@ class ImportProducts extends ImportBase
                     if ($grup != "") {
                         $nameForProduct = $grup;
                     }
-                    $query = $this->simpla->db->query("INSERT INTO __products(name, url, body, brand_id, content_title, meta_title, meta_keywords, meta_description, visible, external_id, pod_zakaz, max_sale) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)", $nameForProduct, $url, $bodyp, $short_name, $brand, $nameForProduct, $nameForProduct, $meta_keywords, $meta_description, 1, $sku, $zakaz, $max_sale);
+                    $query = $this->simpla->db->query("INSERT INTO __products(name, url, body, brand_id, content_title, meta_title, meta_keywords, meta_description, visible, external_id, pod_zakaz, max_sale) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)", $nameForProduct, $url, $bodyp, $short_name, $brand, $nameForProduct, $nameForProduct, $meta_keywords, 1, 1, $sku, $zakaz, $max_sale);
 
 
                     $pro_id = $this->simpla->db->insert_id();
