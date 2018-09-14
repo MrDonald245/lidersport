@@ -146,15 +146,10 @@
           <!-- End PC menu -->
 
           <div class="search-ico"></div>
-          {*<a href="/zimnie-tovary" class="header__item">Зимние товары</a>*}
-          {*<a href="/elki-iskusstvennye" class="header__item">Ёлки искусственные</a>*}
-          <a href="/samokaty" class="header__item">Самокаты</a>
-          <a href="/giroskutery" class="header__item">Гироскутеры</a>
-          <a href="/skejty" class="header__item">Скейты</a>
-          <a href="/roliki" class="header__item">Ролики</a>
-          {*<a href="/sportivnye-kompleksy-i-batuty" class="header__item">Спорткомлексы</a>
-          <a href="/futbol" class="header__item">Футбол</a>*}
-          <a href="/velosipedy" class="header__item">Велосипеды</a>
+          <a href="/edinoborstva" class="header__item">ЕДИНОБОРСТВА</a>
+          <a href="/gimnastika-i-tantsy" class="header__item">ГИМНАСТИКА И ТАНЦЫ</a>
+          <a href="/dlya-doma" class="header__item">ДЕТСКИЕ СПОРТКОМПЛЕКСЫ</a>
+          <a href="/fitnes-i-atletika" class="header__item">ФИТНЕС И АТЛЕТИКА</a>
           <a href="/bassejny" class="header__item header__item--icon header__item--shares">Бассейны</a>
           <a href="/sale?page=all" class="header__item">Распродажа</a>
         </div>
