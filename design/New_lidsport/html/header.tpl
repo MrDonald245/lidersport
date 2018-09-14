@@ -150,8 +150,7 @@
           <a href="/gimnastika-i-tantsy" class="header__item">ГИМНАСТИКА И ТАНЦЫ</a>
           <a href="/dlya-doma" class="header__item">ДЕТСКИЕ СПОРТКОМПЛЕКСЫ</a>
           <a href="/fitnes-i-atletika" class="header__item">ФИТНЕС И АТЛЕТИКА</a>
-          <a href="/bassejny" class="header__item header__item--icon header__item--shares">Бассейны</a>
-          <a href="/sale?page=all" class="header__item">Распродажа</a>
+          <a href="/sale?page=all" class="header__item header__item--icon header__item--shares">Распродажа</a>
         </div>
       </div>
 
